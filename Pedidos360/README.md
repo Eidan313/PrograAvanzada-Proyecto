@@ -108,12 +108,12 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 
 ### Esteban Eduardo Gamboa Román — Contexto, migración y paginación
 
-- [ ] `DbSet` de las 5 entidades en `ApplicationDbContext`
-- [ ] Tipos de columna en `ApplicationDbContext`: `Producto.Imagen` como `varbinary(max)` y montos en `decimal(18,2)`
-- [ ] Relaciones con borrado restringido; índices únicos en `Cliente.Cedula` y `Categoria.Nombre`
+- [x] `DbSet` de las 5 entidades en `ApplicationDbContext`
+- [x] Tipos de columna en `ApplicationDbContext`: `Producto.Imagen` como `varbinary(max)` y montos en `decimal(18,2)`
+- [x] Relaciones con borrado restringido; índices únicos en `Cliente.Cedula` y `Categoria.Nombre`
 - [ ] Migración `Inicial` en `main`; `Update-Database` funciona sobre una base vacía
-- [ ] Clase de paginación reutilizable (`ListaPaginada<T>`) usada por todos los listados
-- [ ] Partial `_Paginacion` (página actual, total de páginas, conserva filtros)
+- [ ] Clase de paginación reutilizable (`ListaPaginada<T>`) usada por todos los listados (clase lista; falta que cada CRUD la use)
+- [x] Partial `_Paginacion` (página actual, total de páginas, conserva filtros)
 
 ### Genesis Obando Cruz — CRUD de Productos
 
