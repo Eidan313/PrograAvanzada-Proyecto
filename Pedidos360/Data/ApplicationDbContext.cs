@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pedidos360.Models;
 
@@ -22,11 +23,61 @@ namespace Pedidos360.Data
             // Identity primero: sus tablas se renombran despues.
             base.OnModelCreating(modelBuilder);
 
+            ConfigurarIdentity(modelBuilder);
             ConfigurarCategorias(modelBuilder);
             ConfigurarProductos(modelBuilder);
             ConfigurarClientes(modelBuilder);
             ConfigurarPedidos(modelBuilder);
             ConfigurarPedidoDetalles(modelBuilder);
+        }
+
+        // Nombres en espanol para las tablas de Identity, igual que en Database/01_Crear_Pedidos360.sql.
+        private static void ConfigurarIdentity(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUser>(entity =>
+            {
+                entity.ToTable("Usuarios");
+                entity.Property(u => u.UserName).HasColumnName("NombreUsuario");
+                entity.Property(u => u.Email).HasColumnName("Correo");
+                entity.Property(u => u.PasswordHash).HasColumnName("HashContrasenna");
+            });
+
+            modelBuilder.Entity<IdentityRole>(entity =>
+            {
+                entity.ToTable("Roles");
+                entity.Property(r => r.Name).HasColumnName("Nombre");
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+            {
+                entity.ToTable("UsuarioRoles");
+                entity.Property(ur => ur.UserId).HasColumnName("IdUsuario");
+                entity.Property(ur => ur.RoleId).HasColumnName("IdRol");
+            });
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
+            {
+                entity.ToTable("RolClaims");
+                entity.Property(rc => rc.RoleId).HasColumnName("IdRol");
+            });
+
+            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+            {
+                entity.ToTable("UsuarioClaims");
+                entity.Property(uc => uc.UserId).HasColumnName("IdUsuario");
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+            {
+                entity.ToTable("UsuarioLogins");
+                entity.Property(ul => ul.UserId).HasColumnName("IdUsuario");
+            });
+
+            modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+            {
+                entity.ToTable("UsuarioTokens");
+                entity.Property(ut => ut.UserId).HasColumnName("IdUsuario");
+            });
         }
 
         private static void ConfigurarCategorias(ModelBuilder modelBuilder)
