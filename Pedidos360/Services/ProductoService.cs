@@ -1,6 +1,8 @@
-﻿namespace Pedidos360.Services
+﻿using Pedidos360.Services.Interfaces;
+
+namespace Pedidos360.Services
 {
-    public class ProductoService
+    public class ProductoService : IProductoService
     {
     }
 }

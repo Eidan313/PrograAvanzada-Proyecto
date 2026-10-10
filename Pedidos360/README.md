@@ -68,7 +68,7 @@ Todos los paquetes `Microsoft.*` deben tener la misma versión (9.0.6). No se ac
 
 ## Reglas de trabajo en equipo
 
-- `main` está protegida: todo cambio entra por Pull Request con al menos 1 aprobación.
+- Nadie hace push directo a `main`: todo cambio entra por Pull Request.
 - Cada integrante trabaja en su rama (`feature/<tema>`) y solo modifica sus archivos.
 - Antes de abrir un PR: traer `main` a la rama, compilar y probar.
 - Solo Esteban ejecuta `Add-Migration`. Las migraciones que ya están en `main` no se editan ni se borran.
@@ -82,8 +82,8 @@ Todos los paquetes `Microsoft.*` deben tener la misma versión (9.0.6). No se ac
 
 | Rol | Integrante | Responsabilidad | Rama |
 |---|---|---|---|
-| Coordinación del proyecto | Alberto José Ulate Velásquez | Solución base, repositorio, layout y partials, diagrama ER, scripts SQL, README, revisión de PRs | `feature/base-layout` |
-| Base de datos | Esteban Eduardo Gamboa Román | Entidades, contexto, migración inicial, paginación reutilizable, normalización | `feature/modelo-datos` |
+| Coordinación del proyecto | Alberto José Ulate Velásquez | Solución base, repositorio, layout y alertas, diseño de la base de datos (entidades, ER, normalización y script SQL), README, revisión de PRs | `feature/base-layout` |
+| Base de datos | Esteban Eduardo Gamboa Román | Contexto y relaciones, migración inicial, paginación reutilizable | `feature/modelo-datos` |
 | Diseño de pantallas | Genesis Obando Cruz | CRUD de Productos y su prototipo | `feature/crud-productos` |
 | Integración y búsquedas | Eidan Fabián Álvarez Gómez | CRUD de Clientes y su prototipo | `feature/crud-clientes` |
 | Calidad y datos de prueba | Mónica Michelle García García | CRUD de Categorías, datos iniciales, story map y guion de la demo | `feature/categorias-datos-iniciales` |
@@ -92,29 +92,29 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 
 ## Checklist
 
-### Alberto José Ulate Velásquez — Solución base, ER, scripts SQL y README
+### Alberto José Ulate Velásquez — Solución base, diseño de la base de datos y README
 
 - [x] Proyecto MVC .NET 9 con paquetes EF e Identity en 9.0.6
 - [x] Estructura de carpetas y archivos base para cada integrante
 - [x] `.gitignore` y repositorio en GitHub
-- [ ] Identity configurado (contexto, `Program.cs` y login)
-- [ ] `main` protegida (1 aprobación) y colaboradores invitados
-- [ ] `DefaultConnection` apuntando a la base `Pedidos360`
-- [ ] `_Layout` con menú (Inicio, Productos, Clientes, Categorías)
-- [ ] Partial `_Paginacion` (página actual, total de páginas, conserva filtros)
-- [ ] Partial `_Alertas` (mensajes de éxito y error con `TempData`)
+- [x] Identity configurado (contexto, `Program.cs` y login)
+- [x] `DefaultConnection` apuntando a la base `Pedidos360`
+- [x] `_Layout` con menú (Inicio, Productos, Clientes, Categorías)
+- [x] Partial `_Alertas` (mensajes de éxito y error con `TempData["Exito"]` y `TempData["Error"]`)
+- [ ] Entidades `Categoria`, `Producto`, `Cliente`, `Pedido` y `PedidoDetalle` con DataAnnotations
 - [ ] Diagrama ER con tablas, llaves y relaciones en `docs/`
+- [ ] Justificación 1FN, 2FN y 3FN en `docs/`
 - [ ] Script SQL de creación de la base generado con `Script-Migration -Idempotent` en `Database/`
 - [ ] README con los pasos clonar → `Update-Database` → F5
 
-### Esteban Eduardo Gamboa Román — Modelo de datos
+### Esteban Eduardo Gamboa Román — Contexto, migración y paginación
 
-- [ ] Entidades `Categoria`, `Producto`, `Cliente`, `Pedido` y `PedidoDetalle` con DataAnnotations
-- [ ] `Producto.Imagen` como `byte[]` más tipo de archivo; montos en `decimal(18,2)`
+- [ ] `DbSet` de las 5 entidades en `ApplicationDbContext`
+- [ ] Tipos de columna en `ApplicationDbContext`: `Producto.Imagen` como `varbinary(max)` y montos en `decimal(18,2)`
 - [ ] Relaciones con borrado restringido; índices únicos en `Cliente.Cedula` y `Categoria.Nombre`
 - [ ] Migración `Inicial` en `main`; `Update-Database` funciona sobre una base vacía
 - [ ] Clase de paginación reutilizable (`ListaPaginada<T>`) usada por todos los listados
-- [ ] Justificación 1FN, 2FN y 3FN en `docs/`
+- [ ] Partial `_Paginacion` (página actual, total de páginas, conserva filtros)
 
 ### Genesis Obando Cruz — CRUD de Productos
 
