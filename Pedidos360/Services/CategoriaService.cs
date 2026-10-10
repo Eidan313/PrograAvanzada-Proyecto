@@ -1,0 +1,6 @@
+﻿namespace Pedidos360.Services
+{
+    public class CategoriaService
+    {
+    }
+}
