@@ -101,11 +101,10 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 - [x] `DefaultConnection` apuntando a la base `Pedidos360`
 - [x] `_Layout` con menú (Inicio, Productos, Clientes, Categorías)
 - [x] Partial `_Alertas` (mensajes de éxito y error con `TempData["Exito"]` y `TempData["Error"]`)
-- [ ] Entidades `Categoria`, `Producto`, `Cliente`, `Pedido` y `PedidoDetalle` con DataAnnotations
-- [ ] Diagrama ER con tablas, llaves y relaciones en `docs/`
-- [ ] Justificación 1FN, 2FN y 3FN en `docs/`
-- [ ] Script SQL de creación de la base generado con `Script-Migration -Idempotent` en `Database/`
-- [ ] README con los pasos clonar → `Update-Database` → F5
+- [X] Entidades `Categoria`, `Producto`, `Cliente`, `Pedido` y `PedidoDetalle` con DataAnnotations
+- [X] Diagrama ER con tablas, llaves y relaciones en `docs/`
+- [X] Justificación 1FN, 2FN y 3FN en `docs/`
+- [X] Script SQL de creación de la base generado con `Script-Migration -Idempotent` en `Database/`
 
 ### Esteban Eduardo Gamboa Román — Contexto, migración y paginación
 
