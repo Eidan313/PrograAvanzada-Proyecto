@@ -1,5 +1,17 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+@model Pedidos360.ViewModels.ProductoIndexViewModel
+@{ViewData["Title"]="Productos";}
+<h1>Productos</h1>
+<partial name="_Alertas" />
+<div class="d-flex justify-content-end mb-3"><a asp-action="Create" class="btn btn-primary">Nuevo producto</a></div>
+<form method="get" class="row g-2 mb-3">
+ <div class="col-md-5"><input name="nombre" value="@Model.Nombre" class="form-control" placeholder="Buscar por nombre" /></div>
+ <div class="col-md-4"><select name="categoriaId" asp-items="Model.Categorias" class="form-select"><option value="">Todas las categorías</option></select></div>
+ <div class="col-md-3"><button class="btn btn-outline-primary">Filtrar</button> <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a></div>
+</form>
+<table class="table table-striped align-middle"><thead><tr><th>Imagen</th><th>Código</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead><tbody>
+@foreach(var p in Model.Productos){<tr><td><img src="@Url.Action("Imagen",new{id=p.Id})" alt="Producto" width="56" height="56" style="object-fit:cover"/></td><td>@p.Codigo</td><td>@p.Nombre</td><td>@p.Categoria?.Nombre</td><td>@p.Precio.ToString("N2")</td><td>@p.Stock</td><td><a asp-action="Details" asp-route-id="@p.Id">Ver</a> | <a asp-action="Edit" asp-route-id="@p.Id">Editar</a> | <a asp-action="Delete" asp-route-id="@p.Id" class="text-danger">Eliminar</a></td></tr>}
+@if(!Model.Productos.Any()){<tr><td colspan="7" class="text-center">No se encontraron productos.</td></tr>}
+</tbody></table>
+<nav aria-label="Páginas"><ul class="pagination">
+@for(int i=1;i<=Model.TotalPaginas;i++){<li class="page-item @(i==Model.Pagina?"active":"")"><a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-nombre="@Model.Nombre" asp-route-categoriaId="@Model.CategoriaId">@i</a></li>}
+</ul></nav>
