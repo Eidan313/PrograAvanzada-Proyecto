@@ -136,11 +136,11 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 
 ### Mónica Michelle García García — Categorías, datos iniciales y story map
 
-- [ ] `ICategoriaService` y `CategoriaService`
-- [ ] CRUD de Categorías: nombre requerido y único, listado paginado
-- [ ] Eliminar bloqueado si la categoría tiene productos, con mensaje en `_Alertas`
-- [ ] `DatosIniciales` (seeder): 2 categorías, 12 productos con imagen (`wwwroot/imagenes-iniciales/`) y 8 clientes; inserta solo si la tabla está vacía
-- [ ] Story map con actividades, historias y criterios de aceptación en formato *Dado / Cuando / Entonces*
+- [x] `ICategoriaService` y `CategoriaService`
+- [x] CRUD de Categorías: nombre requerido y único, listado paginado
+- [x] Eliminar bloqueado si la categoría tiene productos, con mensaje en `_Alertas`
+- [x] `DatosIniciales` (seeder): 2 categorías, 12 productos con imagen (`wwwroot/imagenes-iniciales/`) y 8 clientes; inserta solo si la tabla está vacía
+- [x] Story map con actividades, historias y criterios de aceptación en formato *Dado / Cuando / Entonces*
 - [ ] Guion de demo de 5 a 7 minutos con el tiempo de cada integrante
 
 ### Criterio de terminado (todas las tareas)
