@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Categoria
 @{
+    ViewData["Title"] = "Editar categoría";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none">Categorías</a>
+    <h1 class="h2 mt-2 mb-1">Editar categoría</h1>
+</div>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="col-lg-6">
+    <partial name="_Form" model="Model" />
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

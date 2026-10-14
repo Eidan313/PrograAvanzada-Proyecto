@@ -27,6 +27,9 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 var app = builder.Build();
 
+// Datos de prueba (categorias, productos y clientes); solo inserta si las tablas estan vacias.
+await DatosIniciales.InicializarAsync(app.Services);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
