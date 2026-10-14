@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prototipo de Clientes - Pedidos360</title>
+    <link rel="stylesheet" href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        body { background: #f4f6f8; color: #263238; }
+        .prototipo { max-width: 1120px; margin: 48px auto; padding: 0 20px; }
+        .encabezado { border-bottom: 1px solid #d9e0e5; padding-bottom: 20px; }
+        .marca { color: #315b63; font-size: 14px; font-weight: 700; }
+        .muestra { color: #68777d; font-size: 13px; }
+        .panel { background: #fff; border: 1px solid #d9e0e5; border-radius: 6px; padding: 24px; }
+        .vistas { display: flex; gap: 8px; margin: 22px 0; }
+        .prototipo-vista { display: none; }
+        @media (max-width: 640px) {
+            .prototipo { margin: 24px auto; padding: 0 12px; }
+            .panel { padding: 16px; }
+            .tabla-acciones { min-width: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="prototipo">
+        <header class="encabezado d-flex flex-wrap justify-content-between align-items-end gap-2">
+            <div>
+                <div class="marca mb-2">PEDIDOS360 / CLIENTES</div>
+                <h1 class="h3 mb-1">Administración de clientes</h1>
+                <p class="text-secondary mb-0">Prototipo de listado y registro</p>
+            </div>
+            <span class="muestra">Datos de muestra</span>
+        </header>
+
+        <nav class="vistas" aria-label="Vistas del prototipo">
+            <a class="btn btn-sm btn-outline-secondary" href="#listado">Listado</a>
+            <a class="btn btn-sm btn-outline-secondary" href="#formulario">Formulario</a>
+        </nav>
+
+        <section id="listado" class="prototipo-vista panel">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                <div>
+                    <h2 class="h4 mb-1">Clientes</h2>
+                    <p class="text-secondary mb-0">Directorio de clientes registrados</p>
+                </div>
+                <a class="btn btn-primary" href="#formulario">Nuevo cliente</a>
+            </div>
+
+            <form class="row g-2 mb-3">
+                <div class="col-sm-8 col-md-6 col-lg-5">
+                    <label for="busqueda" class="visually-hidden">Buscar clientes</label>
+                    <input id="busqueda" class="form-control" placeholder="Buscar por nombre o cédula">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr><th>Nombre</th><th>Cédula</th><th>Correo</th><th>Teléfono</th><th class="text-end">Acciones</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="fw-semibold">Andrea Vargas</td><td>102340567</td><td>andrea@ejemplo.com</td><td>88881234</td><td class="text-end text-nowrap tabla-acciones"><a href="#formulario" class="btn btn-sm btn-outline-secondary">Ver</a> <a href="#formulario" class="btn btn-sm btn-outline-primary">Editar</a></td></tr>
+                        <tr><td class="fw-semibold">Carlos Méndez</td><td>3101456789</td><td>carlos@ejemplo.com</td><td>87772345</td><td class="text-end text-nowrap tabla-acciones"><a href="#formulario" class="btn btn-sm btn-outline-secondary">Ver</a> <a href="#formulario" class="btn btn-sm btn-outline-primary">Editar</a></td></tr>
+                        <tr><td class="fw-semibold">Taller La Central</td><td>3101789456</td><td>contacto@central.com</td><td>22224567</td><td class="text-end text-nowrap tabla-acciones"><a href="#formulario" class="btn btn-sm btn-outline-secondary">Ver</a> <a href="#formulario" class="btn btn-sm btn-outline-primary">Editar</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between align-items-center gap-2">
+                <span class="small text-secondary">8 clientes · Página 1 de 1</span>
+                <div><button class="btn btn-sm btn-outline-secondary" type="button">Anterior</button> <button class="btn btn-sm btn-outline-secondary" type="button">Siguiente</button></div>
+            </div>
+        </section>
+
+        <section id="formulario" class="prototipo-vista panel">
+            <div class="mb-4">
+                <a href="#listado" class="text-decoration-none">Clientes</a>
+                <h2 class="h4 mt-2 mb-1">Nuevo cliente</h2>
+                <p class="text-secondary mb-0">Completa los datos para registrar un cliente.</p>
+            </div>
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="tipo" class="form-label">Tipo de identificación</label>
+                    <select id="tipo" class="form-select"><option selected>Seleccione una opción</option><option>Cédula física</option><option>Cédula jurídica</option></select>
+                </div>
+                <div class="col-md-6">
+                    <label for="cedula" class="form-label">Cédula</label>
+                    <input id="cedula" class="form-control" placeholder="Número de identificación">
+                </div>
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input id="nombre" class="form-control" placeholder="Nombre completo o razón social">
+                </div>
+                <div class="col-md-6">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input id="correo" type="email" class="form-control" placeholder="nombre@correo.com">
+                </div>
+                <div class="col-md-6">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input id="telefono" class="form-control" placeholder="88881234">
+                </div>
+                <div class="col-12">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <textarea id="direccion" class="form-control" rows="3" placeholder="Dirección del cliente"></textarea>
+                </div>
+                <div class="col-12 d-flex gap-2 pt-2">
+                    <button type="button" class="btn btn-primary">Guardar cliente</button>
+                    <a href="#listado" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script>
+        const mostrarVista = () => {
+            const vistaActiva = window.location.hash === "#formulario" ? "formulario" : "listado";
+            document.querySelectorAll(".prototipo-vista").forEach(vista => {
+                vista.style.display = vista.id === vistaActiva ? "block" : "none";
+            });
+        };
+        window.addEventListener("hashchange", mostrarVista);
+        mostrarVista();
+    </script>
+</body>
+</html>
