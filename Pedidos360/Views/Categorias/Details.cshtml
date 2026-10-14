@@ -1,5 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Categoria
 @{
+    ViewData["Title"] = "Detalle de la categoría";
+    var cantidadProductos = (int)ViewBag.CantidadProductos;
 }
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none">Categorías</a>
+    <h1 class="h2 mt-2 mb-1">Detalle de la categoría</h1>
+</div>
+
+<dl class="row col-lg-6">
+    <dt class="col-sm-4">Nombre</dt>
+    <dd class="col-sm-8">@Model.Nombre</dd>
+    <dt class="col-sm-4">Productos</dt>
+    <dd class="col-sm-8">@cantidadProductos</dd>
+</dl>
+
+<div class="d-flex gap-2 mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+</div>
