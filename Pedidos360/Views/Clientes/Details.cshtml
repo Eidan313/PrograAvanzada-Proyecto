@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Cliente
 @{
+    ViewData["Title"] = "Detalle del cliente";
 }
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none">Clientes</a>
+    <h1 class="h2 mt-2 mb-1">Detalle del cliente</h1>
+    <p class="text-muted mb-0">Información registrada para @Model.Nombre.</p>
+</div>
+
+<dl class="row col-lg-8">
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TipoIdentificacion)</dt>
+    <dd class="col-sm-8">@Html.DisplayFor(model => model.TipoIdentificacion)</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Cedula)</dt>
+    <dd class="col-sm-8">@Model.Cedula</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Nombre)</dt>
+    <dd class="col-sm-8">@Model.Nombre</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Correo)</dt>
+    <dd class="col-sm-8">@Model.Correo</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Telefono)</dt>
+    <dd class="col-sm-8">@Model.Telefono</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Direccion)</dt>
+    <dd class="col-sm-8">@Model.Direccion</dd>
+</dl>
+
+<div class="d-flex gap-2 mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+</div>

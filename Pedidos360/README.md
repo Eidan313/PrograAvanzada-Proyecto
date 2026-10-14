@@ -127,12 +127,12 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 
 ### Eidan Fabián Álvarez Gómez — CRUD de Clientes
 
-- [ ] `IClienteService` y `ClienteService`
-- [ ] Listado con búsqueda por nombre o cédula, 10 por página
-- [ ] Validación cliente y servidor: campos requeridos y correo válido
-- [ ] Cédula duplicada muestra un mensaje claro en lugar de un error
-- [ ] Eliminar bloqueado si el cliente tiene pedidos, con mensaje en `_Alertas`
-- [ ] Prototipo del listado y formulario de Clientes (capturas en `docs/prototipo/`)
+- [x] `IClienteService` y `ClienteService`
+- [x] Listado con búsqueda por nombre o cédula, 10 por página
+- [x] Validación cliente y servidor: campos requeridos y correo válido
+- [x] Cédula duplicada muestra un mensaje claro en lugar de un error
+- [x] Eliminar bloqueado si el cliente tiene pedidos, con mensaje en `_Alertas`
+- [x] Prototipo del listado y formulario de Clientes (capturas en `docs/prototipo/`)
 
 ### Mónica Michelle García García — Categorías, datos iniciales y story map
 
