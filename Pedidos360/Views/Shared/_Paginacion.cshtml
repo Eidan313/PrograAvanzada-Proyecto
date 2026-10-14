@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿@model IListaPaginada
+@*
+    Paginacion reutilizable. Uso en cualquier listado:
+        <partial name="_Paginacion" model="Model.Productos" />
+    Conserva los filtros: copia los valores actuales de la URL y solo cambia "pagina".
 *@
 @{
+    var filtros = new Dictionary<string, string>();
+    foreach (var parametro in Context.Request.Query)
+    {
+        if (!string.Equals(parametro.Key, "pagina", StringComparison.OrdinalIgnoreCase))
+        {
+            filtros[parametro.Key] = parametro.Value.ToString();
+        }
+    }
+
+    Dictionary<string, string> RutaPara(int pagina) =>
+        new Dictionary<string, string>(filtros) { ["pagina"] = pagina.ToString() };
+
+    // Se muestran como maximo 5 numeros alrededor de la pagina actual.
+    var inicio = Math.Max(1, Model.PaginaActual - 2);
+    var fin = Math.Min(Model.TotalPaginas, inicio + 4);
+    inicio = Math.Max(1, fin - 4);
+}
+
+@if (Model.TotalPaginas > 1)
+{
+    <nav aria-label="Paginación" class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+        <small class="text-muted">
+            Página @Model.PaginaActual de @Model.TotalPaginas (@Model.TotalRegistros registros)
+        </small>
+        <ul class="pagination mb-0">
+            @if (Model.TienePaginaAnterior)
+            {
+                <li class="page-item"><a class="page-link" asp-all-route-data="RutaPara(Model.PaginaActual - 1)">Anterior</a></li>
+            }
+            else
+            {
+                <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+            }
+            @for (var i = inicio; i <= fin; i++)
+            {
+                if (i == Model.PaginaActual)
+                {
+                    <li class="page-item active" aria-current="page"><span class="page-link">@i</span></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" asp-all-route-data="RutaPara(i)">@i</a></li>
+                }
+            }
+            @if (Model.TienePaginaSiguiente)
+            {
+                <li class="page-item"><a class="page-link" asp-all-route-data="RutaPara(Model.PaginaActual + 1)">Siguiente</a></li>
+            }
+            else
+            {
+                <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+            }
+        </ul>
+    </nav>
+}
+else if (Model.TotalRegistros > 0)
+{
+    <small class="text-muted d-block mt-3">@Model.TotalRegistros registros</small>
 }
