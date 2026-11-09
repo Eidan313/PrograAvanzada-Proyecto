@@ -147,3 +147,68 @@ Todos los integrantes deben tener commits y al menos un PR aprobado en `main`.
 
 - [ ] Compila y corre después de `Update-Database` sobre una base limpia
 - [ ] PR aprobado por Alberto y fusionado en `main`
+
+---
+
+# Hito 2 — Integración y seguridad
+
+## P3 — Búsqueda AJAX, validación de stock y antiforgery (Esteban Eduardo Gamboa Román)
+
+Rama: `feature/busqueda-ajax-stock`
+
+### Endpoints (todos requieren sesión iniciada)
+
+| Método | Ruta | Uso |
+|---|---|---|
+| GET | `/api/productos/buscar?q={texto}&max=10` | Autocompletado: productos **activos** cuyo nombre o código contiene el texto (mínimo 2 caracteres, máximo 20 resultados). Devuelve `id`, `codigo`, `nombre`, `categoria`, `precio`, `impuestoPorc`, `stock`, `hayStock`, `imagenUrl`. |
+| GET | `/api/productos/{id}/stock?cantidad={n}` | Valida si hay stock para una cantidad. Devuelve `disponible`, `stockDisponible` y `mensaje`. |
+| POST | `/api/productos/validar-stock` | Valida todas las líneas de un pedido (`[{ "productoId": 1, "cantidad": 2 }]`). Suma las cantidades del mismo producto. Exige el token antiforgery en el encabezado. |
+
+Sin sesión, la API responde **401** (no redirige al login) para que el JavaScript muestre el mensaje.
+
+### Antiforgery
+
+- `Program.cs` agrega `AutoValidateAntiforgeryTokenAttribute` como filtro global: todo POST/PUT/DELETE (MVC y API) exige el token.
+- El partial `Views/Shared/_AntiforgeryAjax.cshtml` (incluido en el `_Layout`) publica el token en un `<meta>`.
+- `wwwroot/js/busqueda/antiforgery.js` lo agrega solo al encabezado `RequestVerificationToken` en toda petición jQuery que no sea GET. **Las llamadas AJAX de P2 y P4 (por ejemplo `POST /api/pedidos/calcular`) quedan protegidas sin hacer nada extra.** Con `fetch` se usa `Pedidos360.encabezadosAntiforgery()`.
+
+### Cómo usar el autocompletado en otra vista (por ejemplo, Create de Pedidos)
+
+```html
+<input id="buscarProducto" class="form-control" placeholder="Buscar producto..." />
+```
+
+```javascript
+$('#buscarProducto').autocompletarProducto({
+    alSeleccionar: function (producto) {
+        // producto.id, producto.nombre, producto.precio, producto.impuestoPorc, producto.stock ...
+    }
+});
+
+$.validarStockProducto(productoId, cantidad).done(r => { /* r.disponible, r.mensaje */ });
+$.validarStockPedido([{ productoId: 1, cantidad: 2 }]).done(r => { /* r.esValido, r.errores */ });
+```
+
+Los scripts `antiforgery.js` y `autocompletado.js` ya se cargan en el `_Layout`.
+
+### Validación de stock en el servidor (para `PedidoService`)
+
+El cliente nunca es la única validación. Antes de confirmar un pedido, `PedidoService` debe llamar a:
+
+```csharp
+ResultadoValidacionStockDto resultado = await _busquedaProductoService.ValidarStockAsync(lineas);
+if (!resultado.EsValido) { /* agregar resultado.Errores al ModelState y no guardar */ }
+```
+
+### Página de demostración
+
+Menú **Buscar productos** (`/Busqueda`): autocompletado, validación de stock en vivo mientras se escribe la cantidad y un botón que hace el POST protegido con antiforgery.
+
+### Checklist
+
+- [x] `IBusquedaProductoService` y `BusquedaProductoService` (búsqueda y validación de stock)
+- [x] `GET /api/productos/buscar` autenticado, solo productos activos
+- [x] Validación de stock por producto y por pedido completo (suma cantidades repetidas, rechaza inactivos)
+- [x] Antiforgery global + token en encabezado para AJAX
+- [x] Autocompletado jQuery reutilizable (espera de 300 ms, teclado, insignia de stock, sin stock deshabilitado)
+- [x] Página demo `/Busqueda`
