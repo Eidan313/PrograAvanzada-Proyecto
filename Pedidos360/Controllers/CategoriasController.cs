@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pedidos360.Models;
 using Pedidos360.Services.Interfaces;
 
 namespace Pedidos360.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriasController : Controller
     {
         private const string MensajeNombreDuplicado = "Ya existe una categoría con ese nombre.";
