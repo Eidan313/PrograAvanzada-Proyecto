@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Búsqueda de productos";
+}
+
+<h1>Búsqueda de productos</h1>
+<p class="text-muted">
+    Escriba al menos 2 letras del nombre o del código. Los resultados llegan por AJAX desde
+    <code>/api/productos/buscar</code> y el stock se valida en vivo con el servidor.
+</p>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <label for="buscarProducto" class="form-label fw-semibold">Producto</label>
+                <input id="buscarProducto" type="text" class="form-control" placeholder="Ej.: laptop, MON-001..." />
+
+                <div id="productoSeleccionado" class="d-none mt-3">
+                    <div class="d-flex gap-3 align-items-center">
+                        <img id="imagenProducto" src="" alt="Producto" width="80" height="80" class="rounded" style="object-fit:cover" />
+                        <div>
+                            <div class="fw-semibold" id="nombreProducto"></div>
+                            <div class="small text-muted" id="detalleProducto"></div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-2 align-items-end">
+                        <div class="col-5">
+                            <label for="cantidad" class="form-label">Cantidad</label>
+                            <input id="cantidad" type="number" min="1" value="1" class="form-control" />
+                        </div>
+                        <div class="col-7">
+                            <button id="agregarLinea" type="button" class="btn btn-primary w-100" disabled>Agregar</button>
+                        </div>
+                    </div>
+                    <div id="mensajeStock" class="small mt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Líneas de prueba</h2>
+                <table class="table table-sm align-middle">
+                    <thead>
+                        <tr><th>Producto</th><th class="text-end">Cantidad</th><th class="text-end">Stock</th><th></th></tr>
+                    </thead>
+                    <tbody id="lineas">
+                        <tr class="sin-lineas"><td colspan="4" class="text-center text-muted">Todavía no hay líneas.</td></tr>
+                    </tbody>
+                </table>
+                <button id="validarPedido" type="button" class="btn btn-outline-success" disabled>Validar stock del pedido (POST)</button>
+                <div id="resultadoPedido" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/busqueda/busquedaDemo.js" asp-append-version="true"></script>
+}

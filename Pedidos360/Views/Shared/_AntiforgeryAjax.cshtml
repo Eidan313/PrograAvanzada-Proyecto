@@ -1,0 +1,7 @@
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    // Token para las peticiones AJAX (POST/PUT/DELETE). antiforgery.js lo envía en el encabezado.
+    var tokens = Antiforgery.GetAndStoreTokens(Context);
+}
+<meta name="antiforgery-token" content="@tokens.RequestToken" />
+<meta name="antiforgery-header" content="@tokens.HeaderName" />
