@@ -8,29 +8,31 @@ using Pedidos360.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Base de datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Identity (usuarios y login)
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Servicios de cada modulo
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Acceso/Denegado";
+});
+
 var app = builder.Build();
 
-// Datos de prueba (categorias, productos y clientes); solo inserta si las tablas estan vacias.
 await DatosIniciales.InicializarAsync(app.Services);
+await InicializadorRoles.InicializarAsync(app.Services, app.Configuration);
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -55,3 +57,4 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
