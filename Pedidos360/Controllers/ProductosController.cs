@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Pedidos360.Models;
 using Pedidos360.Services.Interfaces;
 using Pedidos360.ViewModels;
 namespace Pedidos360.Controllers;
-public class ProductosController : Controller
+[Authorize(Roles = "Admin")]
+    public class ProductosController : Controller
 {
  private readonly IProductoService _servicio;
  public ProductosController(IProductoService servicio)=>_servicio=servicio;
