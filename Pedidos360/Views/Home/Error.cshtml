@@ -1,0 +1,17 @@
+﻿@model Pedidos360.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error inesperado";
+}
+
+<div class="container text-center py-5">
+    <p class="text-danger fw-semibold mb-1">ERROR</p>
+    <h1>Algo salió mal</h1>
+    <p class="lead">No pudimos completar la operación. Intentá nuevamente en unos minutos.</p>
+
+    @if (!string.IsNullOrEmpty(Model?.RequestId))
+    {
+        <p>Si el problema continúa, informá esta referencia al equipo: <code>@Model.RequestId</code></p>
+    }
+
+    <a class="btn btn-primary mt-3" href="/">Volver al inicio</a>
+</div>

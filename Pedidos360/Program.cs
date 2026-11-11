@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -68,11 +67,19 @@ var app = builder.Build();
 await DatosIniciales.InicializarAsync(app.Services);
 await InicializadorRoles.InicializarAsync(app.Services, app.Configuration);
 
+// Manejo de errores
 if (!app.Environment.IsDevelopment())
 {
+    // 500: excepciones no controladas 
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+// 404 y otros códigos sin cuerpo 
+// la API responde 401/403 sin HTML a propósito.
+app.UseWhen(
+    ctx => !ctx.Request.Path.StartsWithSegments("/api"),
+    branch => branch.UseStatusCodePagesWithReExecute("/Home/Estado/{0}"));
 
 app.UseHttpsRedirection();
 app.UseRouting();
