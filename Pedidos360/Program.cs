@@ -30,6 +30,7 @@ builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IBusquedaProductoService, BusquedaProductoService>();
+builder.Services.AddScoped<ICalculoPedidoService, CalculoPedidoService>();
 
 // Configuración de acceso
 builder.Services.ConfigureApplicationCookie(options =>
