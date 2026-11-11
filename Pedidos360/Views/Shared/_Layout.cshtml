@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Pedidos360</title>
+    <partial name="_AntiforgeryAjax" />
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -14,29 +16,57 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Pedidos360</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Inicio</a></li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+
                         @if (User.IsInRole("Admin") || User.IsInRole("Vendedor"))
                         {
-                            <li class="nav-item"><a class="nav-link text-dark" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Busqueda" asp-action="Index">Buscar productos</a>
+                            </li>
                         }
+
                         @if (User.IsInRole("Admin"))
                         {
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Productos" asp-action="Index">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Productos" asp-action="Index">Productos</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorías</a>
+                            </li>
                         }
+
                     </ul>
-                    <partial name="_LoginPartial"/>
+
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             <partial name="_Alertas" />
@@ -46,12 +76,17 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - Pedidos360 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - Pedidos360 -
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/busqueda/antiforgery.js" asp-append-version="true"></script>
+    <script src="~/js/busqueda/autocompletado.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
